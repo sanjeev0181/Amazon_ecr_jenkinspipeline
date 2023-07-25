@@ -17,6 +17,11 @@ pipeline {
                     sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 243250302162.dkr.ecr.us-east-1.amazonaws.com"
                 }
             }
+            stage("Build the docker image"){
+                steps {
+                    sh "docker build -t ${IMAGE_REPO_NAME} ."
+                }
+            }
         }
     
 }

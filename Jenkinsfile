@@ -12,10 +12,9 @@ pipeline {
                     sh "mvn clean package"
                 }
             }
-            stage("Building the docker images") {
+            stage("Logging into AWS ECR") {
                 steps {
-                    dockerImage = docker.build "${IMAGE_REPO_NAME}:${IMAGE_TAG}"
-                    sh "docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:$IMAGE_TAG"
+                    sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 243250302162.dkr.ecr.us-east-1.amazonaws.com"
                 }
             }
         }
